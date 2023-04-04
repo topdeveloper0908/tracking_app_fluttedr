@@ -42,7 +42,28 @@ dependencies:
 
   simple_animations: ^3.1.1
 
-  google_maps_flutter: ^2.0.6
+  motion_tab_bar_v2: ^0.2.3
+
+  #Utils
+  google_maps_flutter: ^2.1.1
+
+  label_marker: ^1.0.1
+
+  flutter_polyline_points: ^0.1.0
+
+  flutter_switch: ^0.3.2
+
+  dropdown_button2: ^1.9.2
+
+  flutter_fancy_tree_view: ^0.5.3
+
+  toast:
+
+  #flutter_map: ^3.1.0
+
+  #latlong2: ^0.8.1
+
+  #url_launcher: ^6.1.6
 
 dev_dependencies:
   flutter_test:

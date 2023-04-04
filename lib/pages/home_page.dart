@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        primaryColor: const Color(0xFF2FB1A8),
       ),
       home: MyHomePage(),
     );
@@ -26,22 +26,20 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return OrientationBuilder(
       builder: (context, orientation) {
-        return Scaffold(
-            drawer: NavDrawer(),
-            appBar: AppBar(
-                centerTitle: true,
-                title: Row(
-                  // ignore: prefer_const_literals_to_create_immutables
-                  children: [
-                    const Text('Homeage'),
-                  ],
+        return new WillPopScope(
+            child: Scaffold(
+                drawer: NavDrawer(),
+                appBar: AppBar(
+                  backgroundColor: const Color(0xFF2FB1A8),
+                  title: const Text('Homeage'),
+                ),
+                body: const GoogleMap(
+                  initialCameraPosition: CameraPosition(
+                    target: LatLng(37.7749, -122.4194),
+                    zoom: 12,
+                  ),
                 )),
-            body: const GoogleMap(
-              initialCameraPosition: CameraPosition(
-                target: LatLng(37.7749, -122.4194),
-                zoom: 12,
-              ),
-            ));
+            onWillPop: () => Future.value(false));
       },
     );
   }
