@@ -31,7 +31,7 @@ class MyHomePage extends StatelessWidget {
                 drawer: NavDrawer(),
                 appBar: AppBar(
                   backgroundColor: const Color(0xFF2FB1A8),
-                  title: const Text('Homeage'),
+                  title: const Text('Assets'),
                 ),
                 body: const GoogleMap(
                   initialCameraPosition: CameraPosition(

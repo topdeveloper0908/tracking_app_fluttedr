@@ -3,6 +3,7 @@ import 'package:tracking/services/auth-provider.dart';
 
 // ignore: use_key_in_widget_constructors
 class AccountPage extends StatelessWidget {
+  String curency = "DZD";
   @override
   // ignore: must_call_super
   void initState() {}
@@ -41,7 +42,7 @@ class AccountPage extends StatelessWidget {
                           Container(
                             width: 120,
                             child: const Text(
-                              'Account: ',
+                              'Account ',
                               style: TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16,
@@ -66,7 +67,7 @@ class AccountPage extends StatelessWidget {
                           Container(
                             width: 120,
                             child: const Text(
-                              'Email: ',
+                              'Email ',
                               style: TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16,
@@ -92,15 +93,15 @@ class AccountPage extends StatelessWidget {
                           Container(
                             width: 120,
                             child: const Text(
-                              'Balance: ',
+                              'Currency ',
                               style: TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16,
                               ),
                             ),
                           ),
-                          const Text(
-                            '691200,00 DZD',
+                          Text(
+                            this.curency,
                             style: TextStyle(
                               color: Colors.black87,
                               fontWeight: FontWeight.w500,
@@ -117,15 +118,40 @@ class AccountPage extends StatelessWidget {
                           Container(
                             width: 120,
                             child: const Text(
-                              'Bonus: ',
+                              'Balance ',
                               style: TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16,
                               ),
                             ),
                           ),
-                          const Text(
-                            '0,00DZD',
+                          Text(
+                            '691200,00 $curency',
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                            ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            width: 120,
+                            child: const Text(
+                              'Bonus ',
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                          Text(
+                            '0,00 $curency',
                             style: TextStyle(
                               color: Colors.black87,
                               fontWeight: FontWeight.w500,

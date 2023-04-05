@@ -35,21 +35,6 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
   Widget build(BuildContext context) {
     // ignore: unused_local_variable
     double statusBarHeight = MediaQuery.of(context).padding.top;
-    final usernameField = TextFormField(
-      controller: usernameCtl,
-      keyboardType: TextInputType.url,
-      cursorColor: config.cursorColor,
-      decoration: InputDecoration(
-        contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-        hintText: 'https:your_server_url.domain',
-        hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
-        enabledBorder: config.enabledBorder,
-        focusedBorder: config.focusedBorder,
-        errorBorder: config.errorBorder,
-        filled: config.filled,
-        fillColor: config.fillColor,
-      ),
-    );
     final emailField = TextFormField(
       controller: emailCtrl,
       cursorColor: config.cursorColor,
@@ -101,11 +86,6 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
               config.v_gap_md,
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 20),
-                child: usernameField,
-              ),
-              config.v_gap_md,
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
                 child: emailField,
               ),
               config.v_gap_md,
@@ -131,7 +111,7 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
                               MaterialPageRoute(
                                   builder: (context) => const SignInPage()));
                         },
-                        shape: config.rounded_lg,
+                        shape: config.rounded_xs,
                         child: isCancelLoading
                             ? const SizedBox(
                                 height: 25,
@@ -169,9 +149,7 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
                         onPressed: () {
                           changePassword();
                         },
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50.0),
-                        ),
+                        shape: config.rounded_xs,
                         child: isChangeLoading
                             ? const SizedBox(
                                 height: 25,
@@ -208,16 +186,16 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
     setState(() {
       isChangeLoading = true;
     });
-    if (usernameCtl.text.length > 0 && emailCtrl.text.length > 0) {
+    if (emailCtrl.text.length > 0) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const HomePage()));
+      setState(() {});
     } else {
       setState(() {
         isChangeLoading = false;
       });
       AuthenticateProviderPage.of(context, listen: false)
-          .notifyToastDanger(message: "Error, please fill in all inputs!");
+          .notifyToastDanger(message: "Error, email is required!");
     }
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const HomePage()));
-    setState(() {});
   }
 }

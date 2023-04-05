@@ -201,7 +201,7 @@ class _SignInPageState extends State<SignInPage> {
                         onPressed: () {
                           goToHomepage();
                         },
-                        shape: config.rounded_lg,
+                        shape: config.rounded_xs,
                         child: isLoading
                             ? const SizedBox(
                                 height: 25,
@@ -260,8 +260,13 @@ class _SignInPageState extends State<SignInPage> {
       setState(() {
         isLoading = false;
       });
-      AuthenticateProviderPage.of(context, listen: false)
-          .notifyToastDanger(message: "Error, please fill in all inputs!");
+      if (usernameCtl.text.length > 0) {
+        AuthenticateProviderPage.of(context, listen: false)
+            .notifyToastDanger(message: "Error, Password is required!");
+      } else {
+        AuthenticateProviderPage.of(context, listen: false)
+            .notifyToastDanger(message: "Error, email is required!");
+      }
     }
   }
 }

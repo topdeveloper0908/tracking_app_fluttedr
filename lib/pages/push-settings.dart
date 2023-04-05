@@ -19,7 +19,6 @@ class _PushSettingPageState extends State<PushSettingPage> {
   bool showLabel = false;
   bool info = false;
   bool incomingMsg = false;
-  bool rule = false;
   bool task = false;
   bool status = false;
   bool service = false;
@@ -46,11 +45,11 @@ class _PushSettingPageState extends State<PushSettingPage> {
         body: Column(
           children: [
             const SizedBox(
-              height: 40,
+              height: 30,
             ),
             Container(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -87,20 +86,13 @@ class _PushSettingPageState extends State<PushSettingPage> {
                     const SizedBox(
                       width: 50,
                     ),
-                    Container(
-                      height: 200,
-                      decoration: BoxDecoration(
-                          border: Border(
-                              left: BorderSide(width: 1, color: Colors.black))),
-                      child: Text(''),
-                    ),
                     Expanded(
                       child: Column(
                         children: [
                           Container(
                               decoration: item_decoration,
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 8),
+                                  horizontal: 10, vertical: 12),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -130,37 +122,7 @@ class _PushSettingPageState extends State<PushSettingPage> {
                           Container(
                               decoration: item_decoration,
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 8),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Rule Notifications',
-                                    style: TextStyle(fontSize: config.f_md),
-                                  ),
-                                  FlutterSwitch(
-                                    width: 60.0,
-                                    height: 30.0,
-                                    valueFontSize: 20.0,
-                                    toggleSize: 28.0,
-                                    value: rule,
-                                    borderRadius: 30.0,
-                                    padding: 5.0,
-                                    showOnOff: false,
-                                    activeColor: config.primary,
-                                    onToggle: (val) {
-                                      setState(() {
-                                        rule = val;
-                                      });
-                                    },
-                                  )
-                                ],
-                              )),
-                          Container(
-                              decoration: item_decoration,
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 8),
+                                  horizontal: 10, vertical: 12),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -189,7 +151,7 @@ class _PushSettingPageState extends State<PushSettingPage> {
                               )),
                           Container(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 8),
+                                  horizontal: 10, vertical: 12),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,

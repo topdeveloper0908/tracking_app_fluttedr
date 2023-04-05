@@ -31,7 +31,7 @@ class SettingPageState extends State<SettingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Notifications'),
+          title: const Text('Settings'),
           backgroundColor: config.primary,
         ),
         body: Column(
@@ -142,8 +142,8 @@ class SettingPageState extends State<SettingPage> {
                                     valueFontSize: 20.0,
                                     toggleSize: 28.0,
                                     value: showLabel,
-                                    borderRadius: 30.0,
-                                    padding: 5.0,
+                                    borderRadius: 15,
+                                    padding: 4.0,
                                     showOnOff: false,
                                     activeColor: config.primary,
                                     onToggle: (val) {

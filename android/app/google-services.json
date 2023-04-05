@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "151672836663",
+    "project_id": "traxy-64e1e",
+    "storage_bucket": "traxy-64e1e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:151672836663:android:64ba02b30775702a7c65b2",
+        "android_client_info": {
+          "package_name": "com.example.tracking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "151672836663-kkb0qsnle5b00p4mqe2b0uprdqr0tnpf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAWDMr-kpT1Xs_XZkGqgcSavRVGTmKqxI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "151672836663-kkb0qsnle5b00p4mqe2b0uprdqr0tnpf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
