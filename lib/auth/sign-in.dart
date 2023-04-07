@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
+import 'package:get/get.dart';
 
 import 'package:tracking/config/styles.dart';
 import 'package:tracking/auth/recover-password.dart';
@@ -212,9 +213,9 @@ class _SignInPageState extends State<SignInPage> {
                                     valueColor: AlwaysStoppedAnimation<Color>(
                                         Colors.grey),
                                     strokeWidth: 3))
-                            : const SizedBox(
+                            : SizedBox(
                                 child: Text(
-                                  'Sign In',
+                                  'signin'.tr,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       color: Colors.white,

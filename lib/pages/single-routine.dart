@@ -107,7 +107,8 @@ class SingleRoutineState extends State<SingleRoutine> {
       ),
       body: GoogleMap(
         initialCameraPosition: CameraPosition(
-          target: LatLng(_originLatitude, _originLongitude),
+          target: LatLng((_originLatitude + _destLatitude) / 2,
+              (_originLongitude + _destLongitude) / 2),
           zoom: 16,
         ),
         polylines: _polylines,

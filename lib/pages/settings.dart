@@ -2,10 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:get/get.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
+
 import 'package:tracking/config/styles.dart';
 import 'package:tracking/pages/push-settings.dart';
-
-import 'package:tracking/pages/push-settings.dart';
+import 'package:tracking/services/change-language.dart';
+import 'package:tracking/services/storage.dart';
 
 // ignore: use_key_in_widget_constructors
 class SettingPage extends StatefulWidget {
@@ -18,6 +21,12 @@ class SettingPage extends StatefulWidget {
 class SettingPageState extends State<SettingPage> {
   AppConfig config = AppConfig();
   bool showLabel = false;
+  final List<String> countries = [
+    'en',
+    'fr',
+  ];
+
+  String? country = Get.locale.toString();
   @override
   // ignore: must_call_super
   void initState() {}
@@ -29,9 +38,10 @@ class SettingPageState extends State<SettingPage> {
 
   @override
   Widget build(BuildContext context) {
+    final MyLanguageController _controller = Get.find<MyLanguageController>();
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Settings'),
+          title: Text('settings.title'.tr),
           backgroundColor: config.primary,
         ),
         body: Column(
@@ -66,7 +76,7 @@ class SettingPageState extends State<SettingPage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Push Notification',
+                                    'settings.pushTitle'.tr,
                                     style: TextStyle(fontSize: config.f_md),
                                   ),
                                   ElevatedButtonTheme(
@@ -101,7 +111,7 @@ class SettingPageState extends State<SettingPage> {
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             Text(
-                                              'Enable',
+                                              'settings.pushEnable'.tr,
                                               style: TextStyle(
                                                   color: config.primary,
                                                   fontSize: config.f_md),
@@ -133,7 +143,7 @@ class SettingPageState extends State<SettingPage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Labels on Map',
+                                    'settings.label'.tr,
                                     style: TextStyle(fontSize: config.f_md),
                                   ),
                                   FlutterSwitch(
@@ -155,6 +165,81 @@ class SettingPageState extends State<SettingPage> {
                                 ],
                               )),
                           Container(
+                              decoration: const BoxDecoration(
+                                  border: Border(
+                                bottom:
+                                    BorderSide(width: 1, color: Colors.grey),
+                              )),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 8),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'settings.language'.tr,
+                                    style: TextStyle(fontSize: config.f_md),
+                                  ),
+                                  DropdownButtonHideUnderline(
+                                      child: DropdownButton2(
+                                    buttonElevation: 2,
+                                    style: const TextStyle(
+                                      color: Colors.black, //<-- SEE HERE
+                                      fontSize: 20,
+                                    ),
+                                    iconEnabledColor: Colors.black,
+                                    // dropdownDecoration:
+                                    //     BoxDecoration(color: config.primary),
+                                    // buttonDecoration: BoxDecoration(
+                                    //   color: config.primary,
+                                    // ),
+                                    buttonPadding: const EdgeInsets.symmetric(
+                                        vertical: 5, horizontal: 0),
+                                    items: countries
+                                        .map((item) => DropdownMenuItem<String>(
+                                              value: item,
+                                              child: Image(
+                                                  width: 40,
+                                                  image: AssetImage(
+                                                      'assets/images/$item.png')),
+                                            ))
+                                        .toList(),
+                                    value: country,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        country = value!;
+                                        if (value == 'en') {
+                                          _controller.changeLanuage('en');
+                                        } else {
+                                          _controller.changeLanuage('fr');
+                                        }
+                                      });
+                                    },
+                                    buttonHeight: 30,
+                                    buttonWidth: 65,
+                                    itemHeight: 30,
+                                    itemPadding:
+                                        EdgeInsets.symmetric(horizontal: 10),
+                                  ))
+                                  // FlutterSwitch(
+                                  //   width: 60.0,
+                                  //   height: 30.0,
+                                  //   valueFontSize: 20.0,
+                                  //   toggleSize: 28.0,
+                                  //   value: english,
+                                  //   borderRadius: 15,
+                                  //   padding: 4.0,
+                                  //   showOnOff: false,
+                                  //   activeColor: config.primary,
+                                  //   onToggle: (val) {
+                                  //     setState(() {
+
+                                  //     });
+                                  //   },
+                                  // )
+                                ],
+                              )),
+                          Container(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 14),
                               child: Row(
@@ -162,7 +247,7 @@ class SettingPageState extends State<SettingPage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Version',
+                                    'settings.version'.tr,
                                     style: TextStyle(fontSize: config.f_md),
                                   ),
                                   Text(

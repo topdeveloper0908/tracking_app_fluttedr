@@ -334,18 +334,6 @@ class _SingleAssestPageState extends State<SingleAssestPage>
                                               decoration:
                                                   bottomSheet_decoration,
                                               child: TextButton(
-                                                  onPressed: () {},
-                                                  child: Text(
-                                                    'Change Tariff',
-                                                    style:
-                                                        bottomSheet_textstyle,
-                                                  )),
-                                            ),
-                                            Container(
-                                              width: bottomSheet_width,
-                                              decoration:
-                                                  bottomSheet_decoration,
-                                              child: TextButton(
                                                   onPressed: () {
                                                     Navigator.push(
                                                         context,
@@ -362,31 +350,27 @@ class _SingleAssestPageState extends State<SingleAssestPage>
                                           ],
                                         ),
                                       ),
-                                      orientation == Orientation.portrait
-                                          ? Card(
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10)),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: <Widget>[
-                                                  Container(
-                                                    width: bottomSheet_width,
-                                                    child: TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.pop(
-                                                                context),
-                                                        child: Text(
-                                                          'Cancel',
-                                                          style:
-                                                              bottomSheet_textstyle,
-                                                        )),
-                                                  )
-                                                ],
-                                              ),
+                                      Card(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: <Widget>[
+                                            Container(
+                                              width: bottomSheet_width,
+                                              child: TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(context),
+                                                  child: Text(
+                                                    'Cancel',
+                                                    style:
+                                                        bottomSheet_textstyle,
+                                                  )),
                                             )
-                                          : config.v_gap_xs
+                                          ],
+                                        ),
+                                      )
                                     ],
                                   );
                                 });
@@ -1411,7 +1395,7 @@ class _SingleAssestPageState extends State<SingleAssestPage>
                                     ))),
                             Container(
                               child: const Center(
-                                child: Text('Display Tab 2',
+                                child: Text('No Events',
                                     style: TextStyle(
                                         fontSize: 22,
                                         fontWeight: FontWeight.bold)),
@@ -1419,7 +1403,7 @@ class _SingleAssestPageState extends State<SingleAssestPage>
                             ),
                             Container(
                               child: const Center(
-                                child: Text('Display Tab 3',
+                                child: Text('No Events',
                                     style: TextStyle(
                                         fontSize: 22,
                                         fontWeight: FontWeight.bold)),
@@ -1427,7 +1411,7 @@ class _SingleAssestPageState extends State<SingleAssestPage>
                             ),
                             Container(
                               child: const Center(
-                                child: Text('Display Tab 4',
+                                child: Text('No Events',
                                     style: TextStyle(
                                         fontSize: 22,
                                         fontWeight: FontWeight.bold)),
