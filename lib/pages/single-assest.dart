@@ -86,6 +86,9 @@ class _SingleAssestPageState extends State<SingleAssestPage>
       labelColor: Colors.grey);
   late PinInformation sourcePinInfo;
   late PinInformation destinationPinInfo;
+  TextEditingController renameCtrl = TextEditingController();
+  bool renameStatus = false;
+
   // Card
   TextStyle Card_Titlestyle = TextStyle(
     color: Colors.black87,
@@ -164,7 +167,21 @@ class _SingleAssestPageState extends State<SingleAssestPage>
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-
+    final renameField = TextFormField(
+      controller: renameCtrl,
+      keyboardType: TextInputType.text,
+      cursorColor: config.cursorColor,
+      decoration: InputDecoration(
+        contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+        hintText: "Enter name",
+        hintStyle: config.hintStyle,
+        enabledBorder: config.enabledBorder,
+        focusedBorder: config.focusedBorder,
+        errorBorder: config.errorBorder,
+        filled: config.filled,
+        fillColor: config.fillColor,
+      ),
+    );
     return DefaultTabController(
       length: 4,
       child: Scaffold(
@@ -322,7 +339,97 @@ class _SingleAssestPageState extends State<SingleAssestPage>
                                               decoration:
                                                   bottomSheet_decoration,
                                               child: TextButton(
-                                                  onPressed: () {},
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                    showModalBottomSheet(
+                                                        context: context,
+                                                        backgroundColor:
+                                                            Colors.transparent,
+                                                        builder: (context) {
+                                                          return Column(
+                                                            children: [
+                                                              Card(
+                                                                shape: config
+                                                                    .rounded_md,
+                                                                child: Column(
+                                                                  children: <
+                                                                      Widget>[
+                                                                    SizedBox(
+                                                                      height:
+                                                                          20,
+                                                                    ),
+                                                                    Container(
+                                                                        padding: const EdgeInsets.symmetric(
+                                                                            horizontal:
+                                                                                20,
+                                                                            vertical:
+                                                                                5),
+                                                                        width:
+                                                                            bottomSheet_width,
+                                                                        child: const Text(
+                                                                            'Enter new name',
+                                                                            textAlign:
+                                                                                TextAlign.center,
+                                                                            style: TextStyle(
+                                                                              fontSize: 20,
+                                                                              fontWeight: FontWeight.bold,
+                                                                              color: Colors.black87,
+                                                                            ))),
+                                                                    SizedBox(
+                                                                      height:
+                                                                          10,
+                                                                    ),
+                                                                    Container(
+                                                                        padding: const EdgeInsets.symmetric(
+                                                                            horizontal:
+                                                                                20,
+                                                                            vertical:
+                                                                                5),
+                                                                        width:
+                                                                            bottomSheet_width,
+                                                                        child:
+                                                                            renameField),
+                                                                    SizedBox(
+                                                                      height:
+                                                                          10,
+                                                                    ),
+                                                                    MaterialButton(
+                                                                        // minWidth: MediaQuery.of(context).size.width,
+                                                                        color: config
+                                                                            .primary,
+                                                                        onPressed:
+                                                                            () {
+                                                                          Navigator.pop(
+                                                                              context);
+                                                                        },
+                                                                        shape: config
+                                                                            .rounded_xs,
+                                                                        padding:
+                                                                            EdgeInsets.symmetric(vertical: 10.5),
+                                                                        child: renameStatus
+                                                                            ? const SizedBox(
+                                                                                height: 25,
+                                                                                width: 25,
+                                                                                // ignore: unnecessary_const
+                                                                                child: const CircularProgressIndicator(backgroundColor: Colors.grey, valueColor: AlwaysStoppedAnimation<Color>(Colors.white), strokeWidth: 3))
+                                                                            : const SizedBox(
+                                                                                child: Text(
+                                                                                  'Save',
+                                                                                  textAlign: TextAlign.center,
+                                                                                  style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.normal),
+                                                                                ),
+                                                                              )),
+                                                                    SizedBox(
+                                                                      height:
+                                                                          20,
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          );
+                                                        });
+                                                  },
                                                   child: Text(
                                                     'Rename',
                                                     style:
