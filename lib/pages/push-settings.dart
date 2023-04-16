@@ -70,6 +70,9 @@ class _PushSettingPageState extends State<PushSettingPage> {
                       onToggle: (val) {
                         setState(() {
                           push = val;
+                          incomingMsg = val;
+                          status = val;
+                          service = val;
                         });
                       },
                     )

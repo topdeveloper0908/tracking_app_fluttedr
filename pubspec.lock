@@ -57,6 +57,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
+  date_range_form_field:
+    dependency: "direct main"
+    description:
+      name: date_range_form_field
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
   dropdown_button2:
     dependency: "direct main"
     description:
@@ -132,13 +139,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_fancy_tree_view:
-    dependency: "direct main"
-    description:
-      name: flutter_fancy_tree_view
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.5.3+2"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -501,7 +501,7 @@ packages:
       name: syncfusion_flutter_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "21.1.38"
+    version: "21.1.39"
   syncfusion_flutter_sliders:
     dependency: "direct main"
     description:

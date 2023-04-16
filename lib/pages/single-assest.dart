@@ -10,6 +10,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:label_marker/label_marker.dart';
 import 'package:motion_tab_bar_v2/motion-tab-bar.dart';
 import 'package:motion_tab_bar_v2/motion-badge.widget.dart';
+import 'package:date_range_form_field/date_range_form_field.dart';
 
 import 'package:tracking/config/styles.dart';
 import 'package:tracking/component/timline/data-model.dart';
@@ -89,6 +90,8 @@ class _SingleAssestPageState extends State<SingleAssestPage>
   TextEditingController renameCtrl = TextEditingController();
   bool renameStatus = false;
 
+  DateTimeRange? myDateRange;
+
   // Card
   TextStyle Card_Titlestyle = TextStyle(
     color: Colors.black87,
@@ -99,7 +102,8 @@ class _SingleAssestPageState extends State<SingleAssestPage>
   // Bottom Sheet
   double bottomSheet_width = double.infinity;
   BoxDecoration bottomSheet_decoration = const BoxDecoration(
-      border: Border(top: BorderSide(width: 1, color: Colors.grey)));
+      border: Border(
+          top: BorderSide(width: 1, color: Color.fromARGB(255, 66, 44, 44))));
   TextStyle bottomSheet_textstyle =
       TextStyle(fontSize: 20, color: Color(0xFF2FB1A8));
   @override
@@ -1516,17 +1520,58 @@ class _SingleAssestPageState extends State<SingleAssestPage>
                                         fontWeight: FontWeight.bold)),
                               ),
                             ),
-                            Container(
-                              child: const Center(
-                                child: Text('No Events',
-                                    style: TextStyle(
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.bold)),
-                              ),
-                            ),
+                            Column(
+                              children: [
+                                Container(
+                                  child: Theme(
+                                    data: Theme.of(context).copyWith(
+                                      colorScheme: ColorScheme.light(
+                                        primary: config.primary, // <-- SEE HERE
+                                        onPrimary: Colors.white, // <-- SEE HERE
+                                        onSurface:
+                                            config.primary, // <-- SEE HERE
+                                      ),
+                                      textButtonTheme: TextButtonThemeData(
+                                        style: TextButton.styleFrom(
+                                          primary:
+                                              Colors.white, // button text color
+                                        ),
+                                      ),
+                                    ),
+                                    child: DateRangeField(
+                                        firstDate: DateTime(1990),
+                                        enabled: true,
+                                        initialValue: DateTimeRange(
+                                            start: DateTime.now(),
+                                            end: DateTime.now()
+                                                .add(Duration(days: 5))),
+                                        decoration: InputDecoration(
+                                          labelText: 'Date Range',
+                                          prefixIcon: Icon(Icons.date_range),
+                                          hintText:
+                                              'Please select a start and end date',
+                                          border: OutlineInputBorder(),
+                                        ),
+                                        validator: (value) {
+                                          if (value!.start
+                                              .isBefore(DateTime.now())) {
+                                            return 'Please enter a later start date';
+                                          }
+                                          return null;
+                                        },
+                                        onSaved: (value) {
+                                          setState(() {
+                                            myDateRange = value!;
+                                          });
+                                        }),
+                                  ),
+                                ),
+                                Text('No events')
+                              ],
+                            )
                           ]))),
                   DefaultTabController(
-                      length: 4, // length of tabs
+                      length: 5, // length of tabs
                       initialIndex: 0,
                       child: Scaffold(
                           appBar: AppBar(
@@ -1635,14 +1680,55 @@ class _SingleAssestPageState extends State<SingleAssestPage>
                                         fontWeight: FontWeight.bold)),
                               ),
                             ),
-                            Container(
-                              child: const Center(
-                                child: Text('Display Tab 4',
-                                    style: TextStyle(
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.bold)),
-                              ),
-                            ),
+                            Column(
+                              children: [
+                                Container(
+                                  child: Theme(
+                                    data: Theme.of(context).copyWith(
+                                      colorScheme: ColorScheme.light(
+                                        primary: config.primary, // <-- SEE HERE
+                                        onPrimary: Colors.white, // <-- SEE HERE
+                                        onSurface:
+                                            config.primary, // <-- SEE HERE
+                                      ),
+                                      textButtonTheme: TextButtonThemeData(
+                                        style: TextButton.styleFrom(
+                                          primary:
+                                              Colors.white, // button text color
+                                        ),
+                                      ),
+                                    ),
+                                    child: DateRangeField(
+                                        firstDate: DateTime(1990),
+                                        enabled: true,
+                                        initialValue: DateTimeRange(
+                                            start: DateTime.now(),
+                                            end: DateTime.now()
+                                                .add(Duration(days: 5))),
+                                        decoration: InputDecoration(
+                                          labelText: 'Date Range',
+                                          prefixIcon: Icon(Icons.date_range),
+                                          hintText:
+                                              'Please select a start and end date',
+                                          border: OutlineInputBorder(),
+                                        ),
+                                        validator: (value) {
+                                          if (value!.start
+                                              .isBefore(DateTime.now())) {
+                                            return 'Please enter a later start date';
+                                          }
+                                          return null;
+                                        },
+                                        onSaved: (value) {
+                                          setState(() {
+                                            myDateRange = value!;
+                                          });
+                                        }),
+                                  ),
+                                ),
+                                Text('No events')
+                              ],
+                            )
                           ]))),
                 ],
               );
