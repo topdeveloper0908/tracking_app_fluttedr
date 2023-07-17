@@ -15,6 +15,7 @@ class AuthenticateProviderPage extends ChangeNotifier {
   String _verificationTool = "";
   String _password = "";
   String _userName = "";
+  String _token = "";
 
   get password => _password;
   get userName => _userName;
@@ -52,6 +53,11 @@ class AuthenticateProviderPage extends ChangeNotifier {
 
   set verificationTool(val) {
     _verificationTool = val;
+    notifyListeners();
+  }
+
+  set token(val) {
+    _token = val;
     notifyListeners();
   }
 

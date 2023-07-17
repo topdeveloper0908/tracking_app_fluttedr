@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:get/get.dart';
 
 import 'package:tracking/services/auth-provider.dart';
+import 'package:tracking/services/track-provider.dart';
 import 'package:tracking/services/app-translation.dart';
 import 'package:tracking/auth/sign-in.dart';
 import 'package:tracking/services/change-language.dart';
@@ -36,6 +37,9 @@ class _MyApp extends State<MyApp> {
       providers: [
         ChangeNotifierProvider(
           create: (_) => AuthenticateProviderPage(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => TrackProvider(),
         ),
       ],
       child: GetMaterialApp(

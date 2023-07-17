@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
 import 'package:get/get.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:logger/logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
 import 'package:tracking/config/styles.dart';
+import 'package:tracking/config/constant.dart';
 import 'package:tracking/auth/recover-password.dart';
 import 'package:tracking/services/auth-provider.dart';
 import 'package:tracking/pages/home_page.dart';
+import 'package:tracking/services/track-provider.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -32,6 +39,82 @@ class _SignInPageState extends State<SignInPage> {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  Future<void> setToken(val) async {
+    SharedPreferences sharedPreference = await SharedPreferences.getInstance();
+    sharedPreference.setString("token", val);
+  }
+
+  Future<void> getGroups(String token) async {
+    var uri = Uri.parse('${ApiURL.GROUPS_URL}');
+    var headers = {'Content-Type': 'application/json', 'X-Auth-Token': token};
+    var response = await http.get(uri, headers: headers);
+    if (response.statusCode == 200) {
+      await Provider.of<TrackProvider>(context, listen: false)
+          .setGroups(response.body.toString());
+    }
+  }
+
+  Future<void> getTracks(String token) async {
+    var uri = Uri.parse('${ApiURL.TRACKERS_URL}');
+    var headers = {'Content-Type': 'application/json', 'X-Auth-Token': token};
+    var response = await http.get(uri, headers: headers);
+    if (response.statusCode == 200) {
+      await Provider.of<TrackProvider>(context, listen: false)
+          .setTracks(response.body.toString());
+    }
+  }
+
+  Future<void> _handlelogin() async {
+    setState(() {
+      isLoading = true;
+    });
+    if (usernameCtl.text.length > 0 && passwordCtl.text.length > 0) {
+      setState(() {
+        isLoading = true;
+      });
+      try {
+        var uri = Uri.parse('${ApiURL.LOGIN_URL}');
+        var headers = {'Content-Type': 'application/json'};
+        var body = {
+          'username': usernameCtl.text,
+          'password': passwordCtl.text,
+        };
+        var response =
+            await http.post(uri, headers: headers, body: jsonEncode(body));
+        if (response.statusCode == 200) {
+          setToken(response.headers['x-auth-token']);
+          await getGroups(response.headers['x-auth-token'] ?? '');
+          await getTracks(response.headers['x-auth-token'] ?? '');
+          setState(() {
+            isLoading = false;
+          });
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const HomePage()));
+        } else {
+          AuthenticateProviderPage.of(context, listen: false)
+              .notifyToastDanger(message: "Invalid User");
+        }
+      } catch (e) {
+        setState(() {
+          isLoading = false;
+        });
+        AuthenticateProviderPage.of(context, listen: false)
+            .notifyToastDanger(message: "Sign in error. please try again.");
+      }
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      if (usernameCtl.text.length > 0) {
+        AuthenticateProviderPage.of(context, listen: false)
+            .notifyToastDanger(message: "Error, Password is required!");
+      } else {
+        AuthenticateProviderPage.of(context, listen: false)
+            .notifyToastDanger(message: "Error, email is required!");
+      }
+    }
   }
 
   @override
@@ -200,7 +283,8 @@ class _SignInPageState extends State<SignInPage> {
                         // minWidth: MediaQuery.of(context).size.width,
                         color: config.primary,
                         onPressed: () {
-                          goToHomepage();
+                          _handlelogin();
+                          // _handleLogin();
                         },
                         shape: config.rounded_xs,
                         child: isLoading
@@ -232,42 +316,5 @@ class _SignInPageState extends State<SignInPage> {
         ),
       )),
     );
-  }
-
-  void goToHomepage() async {
-    setState(() {
-      isLoading = true;
-    });
-    if (usernameCtl.text.length > 0 && passwordCtl.text.length > 0) {
-      try {
-        final result = true;
-        setState(() {
-          isLoading = false;
-        });
-        AuthenticateProviderPage.of(context, listen: false).isAuthenticated =
-            true;
-        AuthenticateProviderPage.of(context, listen: false).userName =
-            usernameCtl.text;
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const HomePage()));
-      } catch (e) {
-        setState(() {
-          isLoading = false;
-        });
-        AuthenticateProviderPage.of(context, listen: false)
-            .notifyToastDanger(message: "Sign in error. please try again.");
-      }
-    } else {
-      setState(() {
-        isLoading = false;
-      });
-      if (usernameCtl.text.length > 0) {
-        AuthenticateProviderPage.of(context, listen: false)
-            .notifyToastDanger(message: "Error, Password is required!");
-      } else {
-        AuthenticateProviderPage.of(context, listen: false)
-            .notifyToastDanger(message: "Error, email is required!");
-      }
-    }
   }
 }

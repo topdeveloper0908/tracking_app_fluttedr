@@ -60,6 +60,10 @@ dependencies:
 
   date_range_form_field: ^1.0.2
 
+  logger: ^1.4.0
+
+  string_to_color: ^2.0.0
+
   firebase_messaging:
 
   toast:
